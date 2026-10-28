@@ -1,0 +1,5 @@
+# Dependências para treinar o modelo e testar a API localmente.
+-r requirements.txt
+jupyter
+matplotlib
+requests

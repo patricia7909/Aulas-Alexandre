@@ -1,0 +1,17 @@
+services:
+  api:
+    build: .
+    container_name: api-credito
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=/app/modelos/modelo_credito.pkl
+    volumes:
+      # Monta a pasta local de modelos dentro do container: ao retreinar
+      # no notebook, basta reiniciar (docker compose restart) sem rebuild.
+      - ./modelos:/app/modelos:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
